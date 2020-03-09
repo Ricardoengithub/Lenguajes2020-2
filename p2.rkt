@@ -1,5 +1,8 @@
 #lang plai
 
+;; Función que recibe una lista y devuelve el conjunto potencia de los
+;; elementos de dicha lista.
+;; conjunto-potencia:(listof number) -> (listof (pairof number))
 
 
 (define (cpAux e lista) (cond [(null? lista) #f]
@@ -111,13 +114,14 @@
 ( define-type Arbol
    [vacio]
    [hoja (a any?)]
-   [nodo (t1 Arbol?) (t2 Arbol?)])
+   [nodo (n number?) (t1 Arbol?) (t2 Arbol?)])
 
+(define (agrega n arbol) (arbol))
 
 
 (test (conjunto-potencia (list 1 2 3 3)) '((1 1)(1 2)(1 3)(2 1)(2 2)(2 3)(3 1)(3 2)(3 3)))
 (test (cambio 124 200) '(1 1 0 1 0 1))
-;;(test (descomposicion-primos 14175) '((3 4) (5 2) (7 1)))
+(test (descomposicion-primos 14175) '((3 4) (5 2) (7 1)))
 (test (multiplos 73 1000) '(73 146 219 292 365 438 511 584 657 730 803 876 949))
 (test (perimetro (Cuadrado 2.4)) 9.6)
 (test (area (Circulo 4)) 12.566370614359172)
