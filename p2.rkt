@@ -41,7 +41,16 @@
                                  )) primosList)
 
 
+(define (nprimosAux n i) (cond [(integer? (/ n i)) (+ 1 (nprimosAux (/ n i) i))]
+                               [else 0]))
 
+
+
+(define (descomposicion-primos n) (define lista '()) (map (lambda (i)
+                (cond [(> (nprimosAux n i) 0) (set! lista (append lista (list (list i (nprimosAux n i)))))]
+                      [else (set! lista lista)])
+                )
+       (numerosprimos n)) lista)
 
 
 
@@ -80,7 +89,8 @@
 
 
 
-
+(test (cambio 124 200) '(1 1 0 1 0 1))
+(test (descomposicion-primos 14175) '((3 4) (5 2) (7 1)))
 (test (multiplos 73 1000) '(73 146 219 292 365 438 511 584 657 730 803 876 949))
 (test (perimetro (Cuadrado 2.4)) 9.6)
 (test (area (Circulo 4)) 12.566370614359172)
