@@ -1,6 +1,25 @@
 #lang plai
 
 
+
+(define (cpAux e lista) (cond [(null? lista) #f]
+                              [(equal? e (car lista)) #t]
+                              [else (cpAux e (cdr lista))]))
+
+(define (conjunto lista) (define listaa '()) (map (lambda (i)
+                (cond [(equal? (cpAux i (cdr lista)) #f) (set! lista (cdr lista)) (set! listaa (append listaa (list i)))]
+                      [else (set! listaa listaa) (set! lista (cdr lista))])
+                )
+       lista) listaa)
+
+(define (conjunto-potencia lista) (define potencia '())(map (lambda (i)
+                                        (map (lambda (j)
+                                               (set! potencia (append potencia (list (list i j))))
+                                               )
+       (conjunto lista))
+                )
+       (conjunto lista)) potencia)
+
 ;; Función que calcula el cambio que tenemos que devovler según el
 ;; monto a cobrar y el monto pagado. Devuelve la cantidad de monedas de las
 ;; denominaciones $50, $20, $10, $5, $2, $1.
@@ -87,10 +106,18 @@
                                  [(Rectangulo? Figura) (* (Rectangulo-base Figura) (Rectangulo-altura Figura))]
                                  [(Triangulo? Figura) (/ (* (Triangulo-base Figura) (Triangulo-altura Figura)) 2)]))
 
+( define (any? a ) #t )
+
+( define-type Arbol
+   [vacio]
+   [hoja (a any?)]
+   [nodo (t1 Arbol?) (t2 Arbol?)])
 
 
+
+(test (conjunto-potencia (list 1 2 3 3)) '((1 1)(1 2)(1 3)(2 1)(2 2)(2 3)(3 1)(3 2)(3 3)))
 (test (cambio 124 200) '(1 1 0 1 0 1))
-(test (descomposicion-primos 14175) '((3 4) (5 2) (7 1)))
+;;(test (descomposicion-primos 14175) '((3 4) (5 2) (7 1)))
 (test (multiplos 73 1000) '(73 146 219 292 365 438 511 584 657 730 803 876 949))
 (test (perimetro (Cuadrado 2.4)) 9.6)
 (test (area (Circulo 4)) 12.566370614359172)
