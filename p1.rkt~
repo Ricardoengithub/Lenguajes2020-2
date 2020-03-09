@@ -40,7 +40,6 @@
                              [(< n 0) #f]))
 
 
-
 ;; Funcion que nos da la longitud de una lista
 ;; longitud: (listof a) -> number
 
