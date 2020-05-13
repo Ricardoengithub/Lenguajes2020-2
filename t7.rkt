@@ -21,13 +21,21 @@
  (let ([ busqueda ( hash-ref! tbl n 'vacia )])
    ( cond [( equal? busqueda 'vacia )
            ( define nuevo
-                   ( aux n 2 ( sub1 n )))
+                   ( aux? n 2 ( sub1 n )))
            ( hash-set! tbl n nuevo ) nuevo]
 
           [ else busqueda ])))
 
 
-( define ( aux n i j ) ( cond
+
+ ( define ( aux? n i j)
+ (let ([ busqueda ( hash-ref! tbl n 'vacia )])
+   ( cond [( equal? busqueda 'vacia )
+           ( define nuevo
+                   ( cond
                           [( > i j ) #t ]
                           [( zero? ( modulo n i )) #f ]
-                          [ else ( aux n ( add1 i ) j )]))
+                          [ else ( aux? n ( add1 i ) j )]))
+           ( hash-set! tbl n nuevo ) nuevo]
+
+          [ else busqueda ])))
